@@ -6,12 +6,19 @@ function App() {
 
   useEffect(() => {
 
-    console.log('fdp');
+    const fetchData = async () => {
+
+      const response = await fetch('https://api.thecatapi.com/v1/images/search')
+      const data = await response.json()
+
+      setState(data[0].url)
+    }
+    fetchData()
   }, [])
 
   return (
     <div className="app">
-      fdp
+      <img src={state} alt="" />
     </div>
   );
 }
