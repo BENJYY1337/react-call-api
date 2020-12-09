@@ -3,22 +3,30 @@ import react, { useState, useEffect } from 'react'
 function App() {
 
   const [state, setState] = useState()
+  const [isTrue, setIsTrue] = useState(true)
 
   useEffect(() => {
 
-    const fetchData = async () => {
+    if (isTrue) {
 
-      const response = await fetch('https://api.thecatapi.com/v1/images/search')
-      const data = await response.json()
+      const fetchData = async () => {
 
-      setState(data[0].url)
+        const response = await fetch('https://api.thecatapi.com/v1/images/search')
+        const data = await response.json()
+
+        setState(data[0].url)
+      }
+
+      fetchData()
+
+      setIsTrue(!isTrue)
     }
-    fetchData()
-  }, [])
+  }, [isTrue])
 
   return (
     <div className="app">
       <img src={state} alt="" />
+      <button onClick={(() => setIsTrue(!isTrue))}>Click</button>
     </div>
   );
 }
